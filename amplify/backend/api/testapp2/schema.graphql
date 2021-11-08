@@ -1,0 +1,34 @@
+type ACNumber @model {
+  id: ID!
+  number: String!
+}
+
+type CFNumber @model {
+  id: ID!
+  name: String!
+  arn: String!
+}
+
+type BaseTimeSchedule @model @key(name: "byAcId", fields: ["acId"], queryField: "baseTimeScheduleByAcId") {
+  id: ID!
+  acId: ID!
+  acNumber: ACNumber @connection(fields: ["acId"])
+  dayOfWeek: String!
+  startTime: String!
+  endTime: String!
+  cfId: ID!
+  cfNumber: CFNumber @connection(fields: ["cfId"])
+}
+
+type TempTimeSchedule @model @key(name: "byAcId", fields: ["acId"], queryField: "tempTimeScheduleByAcId") {
+  id: ID!
+  acId: ID!
+  acNumber: ACNumber @connection(fields: ["acId"])
+  name: String!
+  startDate: String!
+  startTime: String!
+  endDate: String
+  endTime: String
+  cfId: ID!
+  cfNumber: CFNumber @connection(fields: ["cfId"])
+}
